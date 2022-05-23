@@ -22,10 +22,10 @@ const Dashboard = () => {
         
     },[])
     const tester = () => {
-        axios.get("http://localhost:8000/api/locations/q/api/:q2")
+        axios.post("http://localhost:8000/api/game/new")
             .then(res=>{
                 console.log(res)
-                setTest(res)
+                setTest(res.data.game)
                 console.log(test)
             })
             .catch(err=>console.log("error --->", err))

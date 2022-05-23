@@ -3,25 +3,13 @@ import React, { useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 
 const Game = () => {
-    let[loggedInUser, setLoggedInUser] = useState({})
+    let [loggedInUser, setLoggedInUser] = useState({})
+    let [game, setGame] = useState([])
+    let [onClick, setOnClick] = useState(false)
     let [clock, setClock] = useState(0)
     let [score, setScore] = useState(0)
-    let [onClick, setOnClick] = useState(false)
     let [round, setRound] = useState(0)
-    let [answer, setAnswer] = useState(0)
     let [difference, setDifference] = useState(0)
-    let [locationOne, setLocationOne] = useState({
-        id: 0,
-        qCode: "",
-        city: "",
-        state: ""
-    })
-    let [locationTwo, setLocationTwo] = useState({
-        id: 0,
-        qCode: "",
-        city: "",
-        state: ""
-    })
     const history = useHistory()
 
     useEffect(()=>{
@@ -38,6 +26,14 @@ const Game = () => {
             })
         
     },[])
+    useEffect(() => {
+        axios.post("http://localhost:8000/api/game/new")
+            .then(res=>{
+                console.log(res)
+                setGame(res.data.game)
+            })
+            .catch(err=>console.log("error --->", err))
+    },[])
 
     useEffect(()=> {
         let timeout = setTimeout(()=> {
@@ -45,51 +41,40 @@ const Game = () => {
             if(clock>0){
                 setClock(clock-1)
             }
-            if(clock==4){
-                axios.get(`http://localhost:8000/api/locations/${locationOne.qCode}/api/${locationTwo.qCode}`)
+            if(clock==3){
+                axios.get(`http://localhost:8000/api/game/answer/${game._id}`)
                     .then(res=>{
-                        console.log("api response", res)
-                        setAnswer(Math.floor(res.data.data))
+                        setGame(res.data.game)
                     })
-                    .catch(err=>console.log("error -->", err))
+                    .catch(err=>console.log(err))
             }
             if(clock==1){
+                console.log("game -->", game)
                 let guess = document.getElementById("guess").value
-                setDifference(Math.abs(answer-guess))
+                setDifference(Math.abs(Math.floor(game.rounds[round][4])-guess))
                 
                 
             }
             if(clock==0&&round!=0&&onClick==true){
-                document.getElementById("answer").innerHTML = "The distance is " + answer + " miles. Your score for round " + round + " is " + difference + "."
-                console.log(answer)
+                document.getElementById("answer").innerHTML = "The distance is " + Math.floor(game.rounds[round][4]) + " miles. Your score for round " + round + " is " + difference + "."
                 setScore(score+difference)
                 setOnClick(false)
             }
         }, 1000)
     },)
-    const play = () => {
-        console.log(loggedInUser)
+    const play = (e) => {
+        console.log(game)
+        e.preventDefault()
+        axios.put(`http://localHost:8000/api/game/${game._id}/${round+1}`, game)
+            .then(res=>{
+                setGame(res.data)
+                console.log("put res -->", res)
+            })
+            .catch(err=>console.log(err))
         setRound(round+1)
         setClock(15)
         setOnClick(true)
-        setAnswer(0)
         setDifference(0)
-        let num1 = Math.ceil(Math.random()*10)
-        let num2 = Math.ceil(Math.random()*10)
-        while(num1==num2){
-            num2 = Math.ceil(Math.random()*10)
-        }
-        
-        axios.get(`http://localhost:8000/api/locations/find/${num1}`)
-            .then(res=>{
-                setLocationOne(res.data.results)
-            })
-            .catch(err=>console.log(err))
-        axios.get(`http://localhost:8000/api/locations/find/${num2}`)
-            .then(res=>{
-                setLocationTwo(res.data.results)
-            })
-            .catch(err=>console.log(err))
     }
     const endGame = (e) => {
         e.preventDefault()
@@ -128,18 +113,21 @@ const Game = () => {
                 
             </div>
             
+            {round!=0?
             <div className="d-flex justify-content-around m-5">
                 <div className="col m-3">
-                    <h5>{locationOne.city} {locationOne.state}</h5>
+                    {/* <h5>{game.data.game.rounds[round][2].city} {game.data.game.rounds[round][2].state}</h5> */}
                 </div>
                 <div className="col">
                     <h3>Clock</h3>
                     <h3 id="clock">{clock}</h3>
                 </div>
                 <div className="col m-3">
-                    <h5>{locationTwo.city} {locationTwo.state}</h5>
+                    {/* <h5>{game.data.game.rounds[round][3].city} {game.data.game.rounds[round][3].state}</h5> */}
                 </div>
+            
             </div>
+            :null}
             <div className="row">
                 <div className="col">
                 </div>

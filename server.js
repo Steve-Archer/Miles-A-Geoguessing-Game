@@ -16,5 +16,6 @@ app.use(cookieParser())
 require("./server/config/mongoose.config")
 require("./server/routes/user.routes")(app)
 require("./server/routes/location.routes")(app)
+require("./server/routes/game.routes")(app)
 
 app.listen( port, ()=> console.log(port))
