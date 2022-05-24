@@ -28,9 +28,19 @@ const End = () => {
                 setTopUsers(res.data.results.sort((a,b)=>a.score - b.score).slice(0, 10))
             })
     }, [])
-
+    const logout = () => {
+        axios.get("http://localhost:8000/api/users/logout", {withCredentials:true})
+            .then(res=>{
+                
+                history.push("/")
+            })
+            .catch(err=>console.log(err))
+    }
+    const play = () => {
+        history.push("/dashboard")
+    }
     return (
-        <div className="m-5">
+        <div className="m-3">
             <div>
                 <h3>Player: {loggedInUser.name}</h3>
                 <h5>BestScore: {loggedInUser.score}</h5>
@@ -59,6 +69,12 @@ const End = () => {
                         })}
                     </tbody>
                 </table>
+            </div>
+            <div className= "mt-2">
+                <button onClick = {play} className="btn btn-primary">Play Again</button>
+            </div>
+            <div className= "mt-2">
+                <button onClick = {logout} className="btn btn-info">Logout</button>
             </div>
         </div>
     )

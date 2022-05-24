@@ -36,18 +36,7 @@ const Game = () => {
     },[])
 
     useEffect(()=> {
-        let timeout = setTimeout(()=> {
-            
-            if(clock>0){
-                setClock(clock-1)
-            }
-            if(clock==3){
-                axios.get(`http://localhost:8000/api/game/answer/${game._id}`)
-                    .then(res=>{
-                        setGame(res.data.game)
-                    })
-                    .catch(err=>console.log(err))
-            }
+        setTimeout(()=> {   
             if(clock==1){
                 console.log("game -->", game)
                 let guess = document.getElementById("guess").value
@@ -60,6 +49,9 @@ const Game = () => {
                 setScore(score+difference)
                 setOnClick(false)
             }
+            if(clock>0){
+                setClock(clock-1)
+            }
         }, 1000)
     },)
     const play = (e) => {
@@ -67,27 +59,29 @@ const Game = () => {
         e.preventDefault()
         axios.put(`http://localHost:8000/api/game/${game._id}/${round+1}`, game)
             .then(res=>{
-                setGame(res.data)
-                console.log("put res -->", res)
+                setGame(res.data.game)
+                
             })
             .catch(err=>console.log(err))
-        setRound(round+1)
-        setClock(15)
+        setClock(8)
         setOnClick(true)
         setDifference(0)
+        setRound(round+1)
     }
     const endGame = (e) => {
         e.preventDefault()
         if(score < loggedInUser.score){
             let userObject = loggedInUser
             userObject.score = score
-            console.log(userObject)
             axios.put(`http://localhost:8000/api/users/end/${loggedInUser._id}`, userObject)
                 .then(res=>{
                     console.log(res)
                 })
                 .catch(err=>console.log(err))
         }
+        axios.delete(`http://localhost:8000/api/game/${game._id}`)
+            .then(res=>console.log(res))
+            .catch(err=>console.log(err))
         history.push("/end")
     }
     const logout = () => {
@@ -116,14 +110,14 @@ const Game = () => {
             {round!=0?
             <div className="d-flex justify-content-around m-5">
                 <div className="col m-3">
-                    {/* <h5>{game.data.game.rounds[round][2].city} {game.data.game.rounds[round][2].state}</h5> */}
+                    <h5>{game.rounds[round][2].city} {game.rounds[round][2].state}</h5>
                 </div>
                 <div className="col">
                     <h3>Clock</h3>
                     <h3 id="clock">{clock}</h3>
                 </div>
                 <div className="col m-3">
-                    {/* <h5>{game.data.game.rounds[round][3].city} {game.data.game.rounds[round][3].state}</h5> */}
+                    <h5>{game.rounds[round][3].city} {game.rounds[round][3].state}</h5>
                 </div>
             
             </div>

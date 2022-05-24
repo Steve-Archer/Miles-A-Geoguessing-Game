@@ -1,6 +1,7 @@
 const Game = require("../models/game.model")
 const Location = require("../models/location.model")
 const fetch = require('node-fetch')
+const { response } = require("express")
 
 module.exports = {
     makeGame: (req, res) => {
@@ -24,7 +25,6 @@ module.exports = {
                 })
                 .catch(err=>console.log("error -->", err))    
         }
-        console.log(array)
         Game.create({rounds:array})
             .then(game=>res.json({game:game}))
             .catch(err=>console.log("error -->", err))
@@ -42,8 +42,6 @@ module.exports = {
             "x-rapidapi-key": process.env.API_PASSWORD
             }
         }
-        console.log("temp", temp)
-        console.log(URL)
         fetch(URL, options)
             .then(result=>result.json())
             .then(json=>{
@@ -54,24 +52,17 @@ module.exports = {
                     {new:true, runValidators:true}        
                     )
                         .then(game=>{
-                            console.log("game ->",game)
+                            res.json({game:game})
                         })
                         .catch(err=>console.log(err))
-                            console.log(err)
-                        })
+            })
             .catch(err=>{
-                console.log("error on round --- probably 403", err)
+                console.log(err)
             })
     },
-    getGame: (req, res) => {
-        console.log("testing", req.params.id)
-        Game.findOne({_id: req.params.id})
-            .then(game=>{
-                res.json({game:game})
-            })
-            .catch(err=>console.log(err))
-    },
-    endGame: (req, res) => {
-        Game.deleteOne({_id: 1})
+    deleteGame: (req, res) => {
+        Game.deleteOne({_id: req.params.id})
+            .then(result=> res.json({result: result}))
+            .catch(err=> response.json(err))
     }
 }
