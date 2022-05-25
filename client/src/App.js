@@ -13,8 +13,7 @@ import {
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <h1>Miles</h1>
+      <div className="App d-flex justify-content-center">
         <Switch>
           <Route exact path = "/">
             <LoginRegister></LoginRegister>

@@ -35,17 +35,17 @@ const RegisterForm = () => {
             <h3>Register</h3>
             <form onSubmit={register}>
                 <div className="form-group">
-                    <label htmlFor="">Name</label>
+                    <label>Name</label>
                     <input type="text" name="name" className="form-control" onChange = {(e) => setName(e.target.value)}/>
                     <p className="text-danger">{formErrors.name?.message}</p>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="">Password</label>
+                    <label>Password</label>
                     <input type="password" name="password" className="form-control" onChange = {(e) => setPassword(e.target.value)}/>
                     <p className="text-danger">{formErrors.password?.message}</p>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="">Confirm Password</label>
+                    <label>Confirm Password</label>
                     <input type="password" name="confirm" className="form-control" onChange = {(e) => setConfirm(e.target.value)}/>
                     <p className="text-danger">{formErrors.confirm?.message}</p>
                 </div>

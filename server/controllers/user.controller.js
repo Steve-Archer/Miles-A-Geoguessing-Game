@@ -38,6 +38,7 @@ class UserController {
 
     login = async(req, res) => {
         const user = await User.findOne({ name: req.body.name })
+        console.log(user)
         if(user === null) {
             return res.json({error: "Invalid. No User."})
         }

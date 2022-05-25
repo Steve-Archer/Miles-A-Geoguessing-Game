@@ -6,7 +6,6 @@ import {useHistory} from 'react-router-dom'
 const Dashboard = () => {
 
     let[loggedInUser, setLoggedInUser] = useState({})
-    let [test,setTest] = useState({})
     const history = useHistory()
     
     useEffect(()=>{

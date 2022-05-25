@@ -94,19 +94,27 @@ const Game = () => {
     }
 
     return (
-        <div className="m-3">
-            <div className="d-flex justify-content-end">
-                <button onClick = {logout} className="btn btn-info">Logout</button>
-            </div>
+        <div className="game-container">
+            
             <div className="d-flex justify-content-center">
-                <div className=" border border-dark w-25">
+                <div className=" border border-dark p-3">
                     <h5>Player: {loggedInUser.name}</h5>
                     <h5>Score: {score}</h5>
                     <h5>Round: {round}</h5>
                 </div>
                 
             </div>
-            
+            {round==0?
+            <div>
+                <div className="rule-box">
+                    <p className="rules">Estimate in miles the geographical distance between two cities.
+                        Distances are based on exact geographical locations.
+                        10 round game - round ends when the clock expires.
+                        What is in the guess box when the round ends is your guess.
+                    </p>
+                </div>
+            </div>
+            :null}
             {round!=0?
             <div className="d-flex justify-content-around m-5">
                 <div className="col m-3">
@@ -145,8 +153,11 @@ const Game = () => {
                     <p>Your Total score was {score}</p>
                     <button onTouchStart={endGame} onClick={endGame} className="btn btn-info mt-3">end game</button>
                 </div>:null}
-            {round==0?<button onTouchStart={play} onClick={play} className="btn btn-info mt-3">play</button>:null}
+            {round==0?<button onTouchStart={play} onClick={play} className="btn btn-info mt-3 p-2">Play</button>:null}
             {onClick==false&&round==0?<p className ="mt-2">Click play to begin the game.</p>:null}
+            <div>
+                <button onClick = {logout} className="btn btn-info mt-5">Logout</button>
+            </div>
         </div>
     )
 }

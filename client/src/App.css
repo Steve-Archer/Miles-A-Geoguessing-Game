@@ -1,6 +1,38 @@
 .App {
   text-align: center;
+  background-color: aliceblue;
+
 }
+
+.game-container {
+  max-width: 700px;
+}
+
+.rule-box {
+  margin: 1.5em;
+  max-width: 550px;
+}
+
+.rules {
+  text-align: left;
+  font-size: 1.25rem;
+}
+
+#submit {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
+@media (max-width: 480px) {
+
+}
+
+
+
+
+
+
 
 .App-logo {
   height: 40vmin;
