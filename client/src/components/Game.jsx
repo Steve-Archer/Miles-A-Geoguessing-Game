@@ -145,15 +145,15 @@ const Game = () => {
                         <p><span id="answer"></span></p>
                     </div>
                     <div>
-                        {round!=10?<button onTouchStart={play} onClick={play} className="btn btn-info mt-3">play</button>:null}
+                        {round!=10?<button onClick={play} className="btn btn-info mt-3">play</button>:null}
                     </div>
                 </div>:null}
             {onClick==false&&round==10?
                 <div>
                     <p>Your Total score was {score}</p>
-                    <button onTouchStart={endGame} onClick={endGame} className="btn btn-info mt-3">end game</button>
+                    <button onClick={endGame} className="btn btn-info mt-3">end game</button>
                 </div>:null}
-            {round==0?<button onTouchStart={play} onClick={play} className="btn btn-info mt-3 p-2">Play</button>:null}
+            {round==0?<button onClick={play} className="btn btn-info mt-3 p-2">Play</button>:null}
             {onClick==false&&round==0?<p className ="mt-2">Click play to begin the game.</p>:null}
             <div>
                 <button onClick = {logout} className="btn btn-info mt-5">Logout</button>
