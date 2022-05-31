@@ -1,8 +1,8 @@
-import './App.css';
+import './index.css';
 import LoginRegister from './components/LoginRegister';
 import Dashboard from './components/Dashboard';
 import Game from './components/Game';
-import End from './components/End'
+import End from './components/End';
 import {
   BrowserRouter,
   Switch,
@@ -13,7 +13,7 @@ import {
 function App() {
   return (
     <BrowserRouter>
-      <div className="App d-flex justify-content-center">
+      <div className="App col d-flex justify-content-center">
         <Switch>
           <Route exact path = "/">
             <LoginRegister></LoginRegister>
@@ -22,7 +22,8 @@ function App() {
             <Dashboard></Dashboard>
           </Route>
           <Route exact path = "/play">
-            <Game></Game>
+              
+              <Game></Game>
           </Route>
           <Route exact path = "/end">
             <End></End>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
-
+import Header from './Header'
 const RegisterForm = () => {
 
     let [name, setName] = useState("")
@@ -22,7 +22,7 @@ const RegisterForm = () => {
                     setFormErrors(res.data.errors)
                 }
                 else{
-                    history.push('/dashboard')
+                    history.push('/play')
                 }
             })
             .catch(err=>{
@@ -32,8 +32,9 @@ const RegisterForm = () => {
 
     return (
         <div>
+            <Header></Header>
             <h3>Register</h3>
-            <form onSubmit={register}>
+            <form className="form" onSubmit={register}>
                 <div className="form-group">
                     <label>Name</label>
                     <input type="text" name="name" className="form-control" onChange = {(e) => setName(e.target.value)}/>
@@ -50,7 +51,7 @@ const RegisterForm = () => {
                     <p className="text-danger">{formErrors.confirm?.message}</p>
                 </div>
                 <input type="hidden" name="score" value="50000"/>
-                <input type="submit" value="Register" className="btn btn-primary mt-3" />
+                <input type="submit" value="Register" className="button btn btn-primary mt-3" />
             </form>
         </div>
     )

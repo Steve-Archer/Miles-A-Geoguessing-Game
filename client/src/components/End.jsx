@@ -41,6 +41,9 @@ const End = () => {
     }
     return (
         <div className="m-3">
+            <div className="logout-box container">
+                <button id="logout" onClick = {logout} className="btn btn-danger">Logout</button>
+            </div>
             <div>
                 <h3>Player: {loggedInUser.name}</h3>
                 <h5>BestScore: {loggedInUser.score}</h5>

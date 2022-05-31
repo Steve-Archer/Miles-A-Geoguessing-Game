@@ -16,7 +16,7 @@ const LoginForm = () => {
                 if(res.data.error){
                     setFormErrors(res.data.error)
                 }else{
-                    history.push('/dashboard')
+                    history.push('/play')
                 }
             })
             .catch(err=>console.log("login error ->", err))
@@ -26,7 +26,7 @@ const LoginForm = () => {
     return (
         <div>
             <h3>Login</h3>
-            <form onSubmit={login}>
+            <form className="form" onSubmit={login}>
                 <div className="form-group">
                     <label>Name</label>
                     <input type="text" name="name" id="name"className="form-control" onChange={(e)=>setName(e.target.value)}/>
@@ -37,7 +37,7 @@ const LoginForm = () => {
                     <p className="text-danger">{formErrors}</p>
                 </div>
                 <div>
-                    <button type="submit" value="Login" id="submit" className="btn btn-primary mt-3">Login</button>
+                    <button type="submit" className="btn btn-primary mt-3">Login</button>
                 </div>
             </form>        
         </div>

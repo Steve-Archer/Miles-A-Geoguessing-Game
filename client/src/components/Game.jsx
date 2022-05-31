@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
+import Header from './Header'
 
 const Game = () => {
     let [loggedInUser, setLoggedInUser] = useState({})
@@ -63,7 +64,7 @@ const Game = () => {
                 
             })
             .catch(err=>console.log(err))
-        setClock(8)
+        setClock(15)
         setOnClick(true)
         setDifference(0)
         setRound(round+1)
@@ -94,58 +95,51 @@ const Game = () => {
     }
 
     return (
-        <div className="game-container">
-            
-            <div className="d-flex justify-content-center">
-                <div className=" border border-dark p-3">
-                    <h5>Player: {loggedInUser.name}</h5>
-                    <h5>Score: {score}</h5>
-                    <h5>Round: {round}</h5>
-                </div>
-                
+        <div className="container game">
+            <div className = "container logout-box">
+                <button id="logout" onClick = {logout} className="btn btn-danger">Logout</button>
+            </div>
+            <Header></Header>
+            <div className="container info-box">
+                <h5>Player: {loggedInUser.name}</h5>
+                <h5>Score: {score}</h5>
+                <h5>Round: {round}</h5>
             </div>
             {round==0?
-            <div>
-                <div className="rule-box">
+                <div className="container rule-box">
                     <p className="rules">Estimate in miles the geographical distance between two cities.
                         Distances are based on exact geographical locations.
                         10 round game - round ends when the clock expires.
                         What is in the guess box when the round ends is your guess.
                     </p>
                 </div>
-            </div>
             :null}
             {round!=0?
-            <div className="d-flex justify-content-around m-5">
-                <div className="col m-3">
-                    <h5>{game.rounds[round][2].city} {game.rounds[round][2].state}</h5>
+            <div className="container clock-box">
+                    <h2 id="clock">{clock}</h2>
+            </div>:null}
+            {round!=0?
+            <div className="container game-box">
+                <div className="location">
+                    <p>{game.rounds[round][2].city} {game.rounds[round][2].state}</p>
                 </div>
-                <div className="col">
-                    <h3>Clock</h3>
-                    <h3 id="clock">{clock}</h3>
-                </div>
-                <div className="col m-3">
-                    <h5>{game.rounds[round][3].city} {game.rounds[round][3].state}</h5>
+                <div className="location">
+                    <p>{game.rounds[round][3].city} {game.rounds[round][3].state}</p>
                 </div>
             
             </div>
             :null}
-            <div className="row">
-                <div className="col">
-                </div>
-                <div className="col d-flex justify-content-center">
-                    <input type="number" name="guess" id="guess" className="form-control w-50" />
-                </div>
-                <div className="col">
-                </div>
-            </div>
+            {round!=0?
+                <div className="guess-box">
+                    <input type="number" name="guess" id="guess" className="form-control" />
+                </div>:null}
             {clock==0&&round!=0?
                 <div>
-                    <div className="d-flex justify-content-center mt-3">
+                    <div className="container answer-box">
                         <p><span id="answer"></span></p>
                     </div>
                     <div>
-                        {round!=10?<button onClick={play} className="btn btn-info mt-3">play</button>:null}
+                        {round!=10&&difference!=0?<button onClick={play} className="play btn btn-primary mt-3">play</button>:null}
                     </div>
                 </div>:null}
             {onClick==false&&round==10?
@@ -153,11 +147,11 @@ const Game = () => {
                     <p>Your Total score was {score}</p>
                     <button onClick={endGame} className="btn btn-info mt-3">end game</button>
                 </div>:null}
-            {round==0?<button onClick={play} className="btn btn-info mt-3 p-2">Play</button>:null}
-            {onClick==false&&round==0?<p className ="mt-2">Click play to begin the game.</p>:null}
-            <div>
-                <button onClick = {logout} className="btn btn-info mt-5">Logout</button>
-            </div>
+            {round==0?<button onClick={play} className="play btn btn-primary mt-3 p-2">Play</button>:null}
+            {onClick==false&&round==0?
+            <div className="container click-play">
+                <p>Click play to begin the game.</p>
+            </div>:null}
         </div>
     )
 }
