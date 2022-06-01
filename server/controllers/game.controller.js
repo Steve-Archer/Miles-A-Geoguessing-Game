@@ -8,10 +8,10 @@ module.exports = {
         let array = [[0]]
 
         for(let i=1;i<=10;i++){
-            let num1 = Math.ceil(Math.random()*10)
-            let num2 = Math.ceil(Math.random()*10)
+            let num1 = Math.ceil(Math.random()*74)
+            let num2 = Math.ceil(Math.random()*74)
             while(num1==num2){
-                num2 = Math.ceil(Math.random()*10)
+                num2 = Math.ceil(Math.random()*74)
             }
             array.push([num1,num2])
             Location.findOne({id:num1})

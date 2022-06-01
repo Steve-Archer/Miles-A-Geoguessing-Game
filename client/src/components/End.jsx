@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
+import Header from './Header'
 
 const End = () => {
     let[loggedInUser, setLoggedInUser] = useState({})
@@ -37,19 +38,20 @@ const End = () => {
             .catch(err=>console.log(err))
     }
     const play = () => {
-        history.push("/dashboard")
+        history.push("/play")
     }
     return (
-        <div className="m-3">
+        <div className="container">
             <div className="logout-box container">
                 <button id="logout" onClick = {logout} className="btn btn-danger">Logout</button>
             </div>
-            <div>
+            <Header></Header>
+            <div className="info-box container">
                 <h3>Player: {loggedInUser.name}</h3>
                 <h5>BestScore: {loggedInUser.score}</h5>
             </div>
             <div className = "d-flex justify-content-center">
-                <table className="table mt-4 w-50 border">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>Place</th>
@@ -73,11 +75,8 @@ const End = () => {
                     </tbody>
                 </table>
             </div>
-            <div className= "mt-2">
+            <div className= "container play-box">
                 <button onClick = {play} className="btn btn-primary">Play Again</button>
-            </div>
-            <div className= "mt-2">
-                <button onClick = {logout} className="btn btn-info">Logout</button>
             </div>
         </div>
     )

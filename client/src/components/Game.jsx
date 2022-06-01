@@ -63,13 +63,12 @@ const Game = () => {
             setGame(res.data.game)
         })
         .catch(err=>console.log(err))
-        setClock(15)
+        setClock(5)
         setOnClick(true)
         setDifference(0)
         setRound(round+1)
-        if(round!=0){
-            document.getElementById("guess").value = ""
-        }
+        document.getElementById("guess").value = ""
+        document.getElementById("guess").focus()
     }
     const endGame = (e) => {
         e.preventDefault()
@@ -109,11 +108,12 @@ const Game = () => {
             </div>
             {round==0?
                 <div className="container rule-box">
-                    <p className="rules">Estimate in miles the geographical distance between two cities.
-                        Distances are based on exact geographical locations.
-                        10 round game - round ends when the clock expires.
-                        What is in the guess box when the round ends is your guess.
-                    </p>
+                    <ul>
+                        <li>Estimate in miles the geographical distance between two cities</li>    
+                        <li>Distances are based on exact geographical locations</li>
+                        <li>10 round game - round ends when the 15 second clock expires</li>
+                        <li>What is in the guess box when the round ends is your guess</li>
+                    </ul>
                 </div>
             :null}
             {round!=0?
@@ -133,22 +133,27 @@ const Game = () => {
             :null}
             {round!=0?
                 <div className="guess-box">
-                    <input type="number" name="guess" id="guess" className="form-control"/>
+                    <input type="number" autofocus="true" name="guess" id="guess" className="form-control"/>
+                </div>:null}
+            
+            {clock==0&&round!=0&&round!=10&&difference!=0?
+                <div className="container play-box">
+                    <button onClick={play} className="play btn btn-primary">play</button>
                 </div>:null}
             {clock==0&&round!=0?
-                <div>
-                    <div className="container answer-box">
-                        <p><span id="answer"></span></p>
-                    </div>
-                        {round!=10&&difference!=0?
-                        <div className="container play-box">
-                            <button onClick={play} className="play btn btn-primary mt-3">play</button>
-                        </div>:null}
+            <div>
+                <div className="container answer-box">
+                    <p><span id="answer"></span></p>
+                </div>
+            </div>:null}
+            {onClick==false&&round==10?
+                <div className="end-game">
+                    <p>Your Total score was {score}</p>
+                    
                 </div>:null}
             {onClick==false&&round==10?
-                <div>
-                    <p>Your Total score was {score}</p>
-                    <button onClick={endGame} className="btn btn-info mt-3">end game</button>
+                <div className="end-game">
+                    <button onClick={endGame} className="btn btn-info">end game</button>
                 </div>:null}
             {onClick==false&&round==0?
             <div className="container click-play">
@@ -156,7 +161,7 @@ const Game = () => {
             </div>:null}
             {round==0?
             <div className="container play-box">
-                <button onClick={play} className="play btn btn-primary mt-3 p-2">Play</button>
+                <button onClick={play} className="play btn btn-primary">Play</button>
             </div>:null}
         </div>
     )

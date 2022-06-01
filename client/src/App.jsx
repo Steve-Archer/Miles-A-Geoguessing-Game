@@ -1,6 +1,5 @@
 import './index.css';
 import LoginRegister from './components/LoginRegister';
-import Dashboard from './components/Dashboard';
 import Game from './components/Game';
 import End from './components/End';
 import {
@@ -17,9 +16,6 @@ function App() {
         <Switch>
           <Route exact path = "/">
             <LoginRegister></LoginRegister>
-          </Route>
-          <Route exact path = "/dashboard">
-            <Dashboard></Dashboard>
           </Route>
           <Route exact path = "/play">
               

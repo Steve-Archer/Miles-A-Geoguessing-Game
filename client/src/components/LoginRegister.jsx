@@ -7,11 +7,11 @@ const LoginRegister = () => {
     return (
         <div className="container">
             <Header></Header>
-            <div className="container row">
-                <div className="col logreg">
+            <div className="container logreg-box">
+                <div className="logreg">
                     <LoginForm></LoginForm>
                 </div>
-                <div className="col logreg">
+                <div className="logreg">
                     <RegisterForm></RegisterForm>
                 </div>
             </div>
