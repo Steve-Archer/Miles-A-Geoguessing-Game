@@ -38,14 +38,14 @@ const Game = () => {
 
     useEffect(()=> {
         setTimeout(()=> {   
-            if(clock==1){
+            if(clock===1){
                 console.log("game -->", game)
                 let guess = document.getElementById("guess").value
                 setDifference(Math.abs(Math.floor(game.rounds[round][4])-guess))
                 
                 
             }
-            if(clock==0&&round!=0&&onClick==true){
+            if(clock===0&&round!=0&&onClick===true){
                 document.getElementById("answer").innerHTML = "The distance is " + Math.floor(game.rounds[round][4]) + " miles. Your score for round " + round + " is " + difference + "."
                 setScore(score+difference)
                 setOnClick(false)
@@ -59,15 +59,17 @@ const Game = () => {
         console.log(game)
         e.preventDefault()
         axios.put(`http://localHost:8000/api/game/${game._id}/${round+1}`, game)
-            .then(res=>{
-                setGame(res.data.game)
-                
-            })
-            .catch(err=>console.log(err))
+        .then(res=>{
+            setGame(res.data.game)
+        })
+        .catch(err=>console.log(err))
         setClock(15)
         setOnClick(true)
         setDifference(0)
         setRound(round+1)
+        if(round!=0){
+            document.getElementById("guess").value = ""
+        }
     }
     const endGame = (e) => {
         e.preventDefault()
@@ -121,36 +123,40 @@ const Game = () => {
             {round!=0?
             <div className="container game-box">
                 <div className="location">
-                    <p>{game.rounds[round][2].city} {game.rounds[round][2].state}</p>
+                    <h5>{game.rounds[round][2].city} {game.rounds[round][2].state}</h5>
                 </div>
                 <div className="location">
-                    <p>{game.rounds[round][3].city} {game.rounds[round][3].state}</p>
+                    <h5>{game.rounds[round][3].city} {game.rounds[round][3].state}</h5>
                 </div>
             
             </div>
             :null}
             {round!=0?
                 <div className="guess-box">
-                    <input type="number" name="guess" id="guess" className="form-control" />
+                    <input type="number" name="guess" id="guess" className="form-control"/>
                 </div>:null}
             {clock==0&&round!=0?
                 <div>
                     <div className="container answer-box">
                         <p><span id="answer"></span></p>
                     </div>
-                    <div>
-                        {round!=10&&difference!=0?<button onClick={play} className="play btn btn-primary mt-3">play</button>:null}
-                    </div>
+                        {round!=10&&difference!=0?
+                        <div className="container play-box">
+                            <button onClick={play} className="play btn btn-primary mt-3">play</button>
+                        </div>:null}
                 </div>:null}
             {onClick==false&&round==10?
                 <div>
                     <p>Your Total score was {score}</p>
                     <button onClick={endGame} className="btn btn-info mt-3">end game</button>
                 </div>:null}
-            {round==0?<button onClick={play} className="play btn btn-primary mt-3 p-2">Play</button>:null}
             {onClick==false&&round==0?
             <div className="container click-play">
                 <p>Click play to begin the game.</p>
+            </div>:null}
+            {round==0?
+            <div className="container play-box">
+                <button onClick={play} className="play btn btn-primary mt-3 p-2">Play</button>
             </div>:null}
         </div>
     )
