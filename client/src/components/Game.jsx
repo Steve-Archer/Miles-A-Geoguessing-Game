@@ -16,7 +16,6 @@ const Game = () => {
     useEffect(()=>{
         axios.get("http://localhost:8000/api/users/loggedInUser", {withCredentials:true})
             .then(res=>{
-                console.log("response on logged in user -->", res)
                 if(res.data.results) {
                     setLoggedInUser(res.data.results)
                 }
@@ -30,7 +29,6 @@ const Game = () => {
     useEffect(() => {
         axios.post("http://localhost:8000/api/game/new")
             .then(res=>{
-                console.log(res)
                 setGame(res.data.game)
             })
             .catch(err=>console.log("error --->", err))
@@ -39,7 +37,6 @@ const Game = () => {
     useEffect(()=> {
         setTimeout(()=> {   
             if(clock===1){
-                console.log("game -->", game)
                 let guess = document.getElementById("guess").value
                 setDifference(Math.abs(Math.floor(game.rounds[round][4])-guess))
                 
@@ -56,7 +53,6 @@ const Game = () => {
         }, 1000)
     },)
     const play = (e) => {
-        console.log(game)
         e.preventDefault()
         axios.put(`http://localHost:8000/api/game/${game._id}/${round+1}`, game)
         .then(res=>{

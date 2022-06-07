@@ -171,11 +171,19 @@ html {
 }
 
 .table {
-  width: 60%;
+  width: 35%;
   background-color: black;
   color: white;
   border-radius: 1rem;
   margin-top: 1.5rem;
+}
+
+.table-place {
+  width: 4rem;
+}
+
+.table-score {
+  width: 5rem;
 }
 
 .table * {

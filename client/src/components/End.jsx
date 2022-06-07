@@ -11,7 +11,6 @@ const End = () => {
     useEffect(()=>{
         axios.get("http://localhost:8000/api/users/loggedInUser", {withCredentials:true})
             .then(res=>{
-                console.log("response on logged in user -->", res)
                 if(res.data.results) {
                     setLoggedInUser(res.data.results)
                 }
@@ -25,7 +24,6 @@ const End = () => {
     useEffect(()=>{
         axios.get("http://localhost:8000/api/users")
             .then(res=>{
-                console.log(res.data.results)
                 setTopUsers(res.data.results.sort((a,b)=>a.score - b.score).slice(0, 10))
             })
     }, [])
@@ -54,9 +52,9 @@ const End = () => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Place</th>
+                            <th className="table-place">Place</th>
                             <th>Name</th>
-                            <th>Score</th>
+                            <th className="table-score">Score</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,12 +62,10 @@ const End = () => {
                             return(
                                 
                                 <tr key = {i}>
-                                    <td>{i+1}</td>
+                                    <td className="table-place">{i+1}</td>
                                     <td>{user.name}</td>
-                                    <td>{user.score}</td>
+                                    <td className="table-score">{user.score}</td>
                                 </tr>
-                                
-                                
                             )
                         })}
                     </tbody>

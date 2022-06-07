@@ -26,7 +26,6 @@ module.exports = {
         let qOne = req.params.qOne
         let qTwo = req.params.qTwo
         let fetchString = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities/" + qOne + "/distance?toCityId=" + qTwo + "&distanceUnit=MI"
-        console.log(fetchString)
         axios.get(fetchString, {
             "headers": {
             "x-rapidapi-host": process.env.API_KEY,
@@ -35,7 +34,6 @@ module.exports = {
         })
             .then(json=>{
                 res.json(json.data)
-                console.log(json.data)
             })
             .catch(err=>console.log(err))
     }
