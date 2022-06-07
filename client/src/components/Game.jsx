@@ -59,7 +59,7 @@ const Game = () => {
             setGame(res.data.game)
         })
         .catch(err=>console.log(err))
-        setClock(5)
+        setClock(10)
         setOnClick(true)
         setDifference(0)
         setRound(round+1)
