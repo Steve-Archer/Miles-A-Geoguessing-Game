@@ -1,12 +1,10 @@
 const Game = require("../models/game.model")
 const Location = require("../models/location.model")
 const fetch = require('node-fetch')
-const { response } = require("express")
 
 module.exports = {
     makeGame: (req, res) => {
         let array = [[0]]
-
         for(let i=1;i<=10;i++){
             let num1 = Math.ceil(Math.random()*74)
             let num2 = Math.ceil(Math.random()*74)

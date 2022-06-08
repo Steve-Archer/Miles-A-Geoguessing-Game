@@ -1,6 +1,7 @@
-const { json } = require("express/lib/response")
 const Location = require("../models/location.model")
 const axios = require('axios')
+
+
 module.exports = {
     getAllLocations: (req, res)=> {
         Location.find()
