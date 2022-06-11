@@ -11,7 +11,7 @@ Your score is determined by the difference(higher or lower) of your guess and th
 You only have ten seconds and what you have in the guessbox is your guess.
 
 It's a simple name/password registration. The user's name is saved along with their personal best (low) score.
-At the end of ten rounds, click the End Game button to proceed to the top10 overall best (low) scores.
+At the end of ten rounds, click the End Game button to proceed to the top10 overall best scores.
 
 My anti-cheat disclaimer is to ask you to not cheat. Thank you!
 
