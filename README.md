@@ -1,5 +1,5 @@
 
-# miles-react
+# Miles-A-Geo-Guessing-Game
 
 The Game is now deployed and ready to play!
 
