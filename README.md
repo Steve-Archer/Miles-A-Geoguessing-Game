@@ -5,7 +5,7 @@ The Game is now deployed and ready to play!
 
 http://44.204.169.188/
  
-Miles A Geoguessing Game is a ten round game of guessing in miles the distance between two US cities.
+Miles is a ten round game of guessing in miles the distance between two US cities.
 
 Your score is determined by the difference(higher or lower) of your guess and the actual answer.
 You only have ten seconds and what you have in the guessbox is your guess.
