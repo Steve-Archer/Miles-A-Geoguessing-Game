@@ -1,5 +1,6 @@
 
-# Miles-A-Geo-Guessing-Game
+# Miles
+# A Geoguessing Game
 
 The Game is now deployed and ready to play!
 
